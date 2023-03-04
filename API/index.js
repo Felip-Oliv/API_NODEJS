@@ -73,3 +73,7 @@ app.delete('/produto/:id', (req, res) =>{
 
 });
 
+// Inicia o servidor
+app.listen(port, () =>{
+    console.log(`Servidor rodando na porta ${port}`);
+});
