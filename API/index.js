@@ -30,50 +30,50 @@ let produtos = [
 ];
 
 // Middleware para parsear o body da requisição
-app.use(bodyParse.json());
+app.use(bodyParser.json());
 
 // Rotas da API
 app.get('/produtos', (req, res) => {
-    res.json(produtos)
+  res.json(produtos);
 });
 
-app.get('/produtos/:id', (req, res)=>{
-    const produto = produtos.find(p=> p.id === parseInt(req.params.id));
-    if(!produto) res.status(404).send('Produto não encontrado');
-    res.json(produto);
-
+app.get('/produtos/:id', (req, res) => {
+  const produto = produtos.find(p => p.id === parseInt(req.params.id));
+  if (!produto) res.status(404).send('Produto não encontrado');
+  res.json(produto);
 });
 
-app.post('/produtos', (req, res) =>{
-    const produto = {
-        id: produtos.length +1,
-        nome: req.body.nome,
-        descricao: req.body.descricao,
-        preco: req.body.preco,
-        quantidade: req.body.quantidade
-    };
-    produto.push(produto);
-    res.json(produto);
+app.post('/produtos', (req, res) => {
+  const produto = {
+    id: produtos.length + 1,
+    nome: req.body.nome,
+    descricao: req.body.descricao,
+    preco: req.body.preco,
+    quantidade: req.body.quantidade
+  };
+  produtos.push(produto);
+  res.json(produto);
 });
 
-app.put('/produtos/:id', (req, rest) => {
-    const produto = produtos.find(p.id === parseInt(req.params.id));
-    if (!produto) res.status(404).send('Produto não encontrado');
-    produto.nome = req.body.nome;
-    produto.descricao = req.body.descricao;
-    produto.quantidade = req.body.quantidade;
-    res.json(produto);
-
+app.put('/produtos/:id', (req, res) => {
+  const produto = produtos.find(p => p.id === parseInt(req.params.id));
+  if (!produto) res.status(404).send('Produto não encontrado');
+  produto.nome = req.body.nome;
+  produto.descricao = req.body.descricao;
+  produto.preco = req.body.preco;
+  produto.quantidade = req.body.quantidade;
+  res.json(produto);
 });
 
-app.delete('/produto/:id', (req, res) =>{
-    const produto = produtos.find(p => p.id ===parseInt(req.params.id));
-    produtos.splice(index, 1);
-    res.json(produto);
-
+app.delete('/produtos/:id', (req, res) => {
+  const produto = produtos.find(p => p.id === parseInt(req.params.id));
+  if (!produto) res.status(404).send('Produto não encontrado');
+  const index = produtos.indexOf(produto);
+  produtos.splice(index, 1);
+  res.json(produto);
 });
 
 // Inicia o servidor
-app.listen(port, () =>{
-    console.log(`Servidor rodando na porta ${port}`);
+app.listen(port, () => {
+  console.log(`Servidor rodando na porta ${port}`);
 });
